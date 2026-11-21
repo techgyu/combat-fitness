@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-11-21",
+  "note": "Evidence table referenced by exercises_v1.0.json and plan_rules_v1.0.json via evidence_id. Links between individual exercises and these sources are general (not exercise-specific trials) and need expert confirmation.",
+  "evidence": [
+    {
+      "evidence_id": "EV01",
+      "title": "부대관리훈령 별표 31 체력검정 기준 (남군)",
+      "source": "국방부 「부대관리훈령」",
+      "type": "regulation",
+      "grade": "A",
+      "confirm_needed": false,
+      "supports": "Test items (2-min push-ups, 2-min sit-ups, 3km run) and age-based grade-1 thresholds."
+    },
+    {
+      "evidence_id": "EV02",
+      "title": "FM 7-22 Holistic Health and Fitness",
+      "source": "Headquarters, Department of the Army, 2020",
+      "type": "military_doctrine",
+      "grade": "B",
+      "confirm_needed": true,
+      "supports": "Military physical training structure: aerobic, muscular strength/endurance, core, mobility and recovery components; foot marching as a trained task."
+    },
+    {
+      "evidence_id": "EV03",
+      "title": "Soldier load carriage: historical, physiological, biomechanical, and medical aspects",
+      "source": "Knapik JJ, Reynolds KL, Harman E. Military Medicine. 2004;169(1):45-56",
+      "type": "review",
+      "grade": "B",
+      "confirm_needed": true,
+      "supports": "Load carriage performance relates to aerobic fitness and lower-body/trunk strength; progressive loaded marching as part of training."
+    },
+    {
+      "evidence_id": "EV04",
+      "title": "A systematic review of the effects of physical training on load carriage performance",
+      "source": "Knapik JJ, Harman EA, Steelman RA, Graham BS. Journal of Strength and Conditioning Research. 2012;26(2):585-597",
+      "type": "systematic_review",
+      "grade": "B",
+      "confirm_needed": true,
+      "supports": "Combined resistance and aerobic training, with or without loaded marching, improves load carriage performance."
+    },
+    {
+      "evidence_id": "EV05",
+      "title": "Quantity and quality of exercise for developing and maintaining cardiorespiratory, musculoskeletal, and neuromotor fitness in apparently healthy adults (ACSM Position Stand)",
+      "source": "Garber CE, et al. Medicine & Science in Sports & Exercise. 2011;43(7):1334-1359",
+      "type": "position_stand",
+      "grade": "B",
+      "confirm_needed": true,
+      "supports": "Frequency/volume ranges for aerobic and resistance exercise; gradual progression of exercise volume."
+    },
+    {
+      "evidence_id": "EV06",
+      "title": "NSCA's Essentials of Tactical Strength and Conditioning",
+      "source": "Alvar BA, Sell K, Deuster PA (eds). Human Kinetics, 2017",
+      "type": "textbook",
+      "grade": "B",
+      "confirm_needed": true,
+      "supports": "Exercise selection for tactical populations: lower-body strength, trunk stability, loaded carries, interval and continuous running, recovery practices."
+    }
+  ]
+}

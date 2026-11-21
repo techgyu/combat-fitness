@@ -1,0 +1,112 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-11-21",
+  "note": "Draft rules used by validator.py. All values are drafts (grade D) pending expert confirmation unless stated otherwise.",
+
+  "contract": {
+    "schema_version": "2.0",
+    "operation": "goal_minus_now",
+    "column_order": ["pushups_2min", "situps_2min", "run_3km_seconds", "load_to_body_weight_ratio"],
+    "column_units": ["reps", "reps", "seconds", "ratio"],
+    "improvement_columns": ["pushups_2min", "situps_2min", "run_3km_seconds"],
+    "combat_load_kg": 15,
+    "load_ratio_tolerance": 0.01,
+    "source": "docs/PROJECT_SPEC.md 1.6", "grade": "A", "confirm_needed": false
+  },
+
+  "plan_weeks": {"value": 8, "source": "docs/PROJECT_SPEC.md 2.2", "grade": "A", "confirm_needed": false},
+  "max_revisions": {"value": 2, "source": "docs/PROJECT_SPEC.md 2.5", "grade": "A", "confirm_needed": false},
+
+  "exercises_per_week": {"min": 3, "max": 6, "source": "draft", "grade": "D", "confirm_needed": true},
+
+  "weekly_caps": {
+    "max_total_sets": 80,
+    "max_total_minutes": 180,
+    "note": "total_sets = sum(sessions_per_week * sets) over reps/time rows; total_minutes = sum(sessions_per_week * minutes) over duration/ruck rows",
+    "source": "draft", "evidence_ids": ["EV05"], "grade": "D", "confirm_needed": true
+  },
+
+  "weekly_progression": {
+    "max_increase_ratio": 1.10,
+    "min_allowance_sets": 6,
+    "min_allowance_minutes": 20,
+    "note": "week N total must be <= max(week N-1 total * max_increase_ratio, week N-1 total + allowance). Decreases are always allowed.",
+    "source": "draft (gradual progression principle)", "evidence_ids": ["EV05"], "grade": "D", "confirm_needed": true
+  },
+
+  "difficulty_by_week": {
+    "rules": [{"weeks": [1, 2], "max_difficulty": 2}, {"weeks": [3, 8], "max_difficulty": 3}],
+    "source": "draft", "grade": "D", "confirm_needed": true
+  },
+
+  "allowed_equipment": {
+    "value": ["pull_up_bar", "parallel_bars", "dumbbell", "barbell_rack", "kettlebell", "treadmill", "stationary_bike", "rucksack", "jump_rope"],
+    "source": "draft; availability in unit gyms not confirmed", "grade": "D", "confirm_needed": true
+  },
+
+  "excluded_exercises": {
+    "value": ["EX27", "EX09"],
+    "note": "Registered in the catalog but not allowed in plans under this rule version. EX27 rucksack walking removed from plans; EX09 barbell back squat removed because plans carry no load prescription.",
+    "source": "project decision 2026-11-21", "grade": "A", "confirm_needed": false
+  },
+
+  "rep_cap_by_record": {
+    "exercise_to_record": {"EX20": "pushups_2min", "EX14": "situps_2min"},
+    "max_ratio_of_current": 0.6,
+    "note": "reps per set <= max(floor(current record * max_ratio_of_current), exercise dose reps minimum)",
+    "source": "draft (submaximal sets relative to current 2-min record)", "grade": "D", "confirm_needed": true
+  },
+
+  "recovery_per_week": {
+    "min_exercises": 1,
+    "category": "recovery",
+    "source": "project decision 2026-11-21", "grade": "A", "confirm_needed": false
+  },
+
+  "run_quality": {
+    "when_column_needs_improvement": "run_3km_seconds",
+    "exercise_ids": ["EX02", "EX03"],
+    "from_week": 3,
+    "min_per_week": 1,
+    "note": "If 3km needs improvement, every week from from_week needs at least one high-intensity run (interval or tempo).",
+    "source": "draft", "evidence_ids": ["EV05", "EV06"], "grade": "D", "confirm_needed": true
+  },
+
+  "final_week_taper": {
+    "enabled": true,
+    "note": "Last week's total sets and total minutes must not exceed the previous week's (eases load before the fitness test).",
+    "source": "draft", "grade": "D", "confirm_needed": true
+  },
+
+  "ruck": {
+    "exercise_ids": ["EX27"],
+    "optional": true,
+    "min_week": 3,
+    "max_sessions_per_week": 1,
+    "max_load_kg": 15,
+    "source": "draft; load fixed at 15kg by spec", "evidence_ids": ["EV03", "EV04"], "grade": "D", "confirm_needed": true
+  },
+
+  "coverage": {
+    "every_week_for_nonzero_delta": true,
+    "min_weeks_with_load_carriage": 4,
+    "load_adaptation_category": "load_adaptation",
+    "min_weeks_with_load_adaptation": 4,
+    "note": "Each improvement column with delta != 0 needs at least one row per week whose targets include it. load_carriage (secondary goal) must be targeted in at least min_weeks_with_load_carriage weeks.",
+    "source": "draft", "grade": "D", "confirm_needed": true
+  },
+
+  "explanation": {
+    "allowed_constants": [1, 2, 3, 8, 15],
+    "note": "Numbers in reasons/summary must come from: deltas (signed and absolute), current/goal records, soldier attributes, load ratio (and x100), the row's own prescription and week, or allowed_constants.",
+    "forbidden_terms": ["진단", "부상 예측", "치료", "처방전"],
+    "load_ratio_terms": ["하중비", "체중 대비 하중"],
+    "load_ratio_misuse_terms": ["점수", "가중", "우선순위", "등급", "부족", "미달", "충족"],
+    "unique_reasons_per_exercise": true,
+    "discouraged_terms": ["검사 횟수", "허용 범위", "dose", "targets", "related_tests"],
+    "discouraged_patterns": ["(?<![0-9])세트 [0-9]+회"],
+    "note_patterns": "'세트 4회, 28회' is confused with sessions per week; write '4세트 28회'.",
+    "note_unique": "Reasons for the same exercise must differ across weeks even after masking numbers.",
+    "source": "CLAUDE.md rules 3, 5, 7; project decision 2026-11-21", "grade": "A", "confirm_needed": false
+  }
+}
