@@ -1,0 +1,1469 @@
+{
+  "catalog_version": "exercise_catalog_demo_v1.0.0",
+  "review_status": "prototype_not_clinically_validated",
+  "exercise_count": 30,
+  "sources": [
+    {
+      "id": "ROK_MND_ANNEX31",
+      "title": "국방부 부대관리훈령 별표 31 체력검정 기준표",
+      "url": "https://law.go.kr/LSW/flDownload.do?bylClsCd=200201&flNm=%5B%EB%B3%84%ED%91%9C+31%5D+%EC%B2%B4%EB%A0%A5%EA%B2%80%EC%A0%95+%EA%B8%B0%EC%A4%80%ED%91%9C%28%EC%A0%9C389%EC%A1%B0+%EA%B4%80%EB%A0%A8%29&flSeq=162617133",
+      "scope": "평가 종목 및 목표 기록; 훈련 처방량의 근거가 아님"
+    },
+    {
+      "id": "ATP_PD",
+      "title": "ATP 7-22.02 Holistic Health and Fitness Drills and Exercises (2020)",
+      "url": "https://h2f.army.mil/Portals/141/pdfs/physical/ATP%207-22.02.pdf?ver=edqjMofTESZNXpNZ8H-pug%3D%3D",
+      "scope": "운동 동작 및 구성 참고; 본 목록의 세트·빈도·보완 태그는 프로젝트 가정"
+    },
+    {
+      "id": "ATP_CORE",
+      "title": "ATP 7-22.02 Holistic Health and Fitness Drills and Exercises (2020)",
+      "url": "https://h2f.army.mil/Portals/141/pdfs/physical/ATP%207-22.02.pdf?ver=edqjMofTESZNXpNZ8H-pug%3D%3D",
+      "scope": "운동 동작 및 구성 참고; 본 목록의 세트·빈도·보완 태그는 프로젝트 가정"
+    },
+    {
+      "id": "ATP_HIP",
+      "title": "ATP 7-22.02 Holistic Health and Fitness Drills and Exercises (2020)",
+      "url": "https://h2f.army.mil/Portals/141/pdfs/physical/ATP%207-22.02.pdf?ver=edqjMofTESZNXpNZ8H-pug%3D%3D",
+      "scope": "운동 동작 및 구성 참고; 본 목록의 세트·빈도·보완 태그는 프로젝트 가정"
+    },
+    {
+      "id": "ATP_STC",
+      "title": "ATP 7-22.02 Holistic Health and Fitness Drills and Exercises (2020)",
+      "url": "https://h2f.army.mil/Portals/141/pdfs/physical/ATP%207-22.02.pdf?ver=edqjMofTESZNXpNZ8H-pug%3D%3D",
+      "scope": "운동 동작 및 구성 참고; 본 목록의 세트·빈도·보완 태그는 프로젝트 가정"
+    },
+    {
+      "id": "FM_ENDURANCE",
+      "title": "FM 7-22 Holistic Health and Fitness (2020, 포함 변경판)",
+      "url": "https://api.army.mil/e2/c/downloads/2026/11/09/c005ad49/holistic-health-and-fitness-fm-7-22.pdf",
+      "scope": "유산소 및 인터벌 훈련 유형; 본 목록의 운동량은 시제품 설정"
+    },
+    {
+      "id": "LOAD_GUIDANCE",
+      "title": "US Army Public Health: Foot-Marching Injuries, FS 12-008-0522",
+      "url": "https://ph.health.mil/resources/cphe-ip-road-marching-injuries.pdf",
+      "scope": "체격·체력·환경을 고려한 점진적 하중 훈련 원칙; 본 목록의 수치는 공식 안전 기준이 아님"
+    },
+    {
+      "id": "DEMO_RULES_V1",
+      "title": "프로젝트 시제품 운동량·빈도·진행 규칙 v1",
+      "url": null,
+      "scope": "모든 허용 범위와 목표 태그 연결은 구현 및 검증용 설계값; 실제 훈련 적용 전 검토 필요"
+    }
+  ],
+  "exercises": [
+    {
+      "exercise_id": "EX001",
+      "slug": "pushup",
+      "name": "팔굽혀펴기",
+      "name_en": "Push-Up",
+      "target_domains": [
+        "pushups_2min"
+      ],
+      "body_region": "upper_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill, Push-Up",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX002",
+      "slug": "knee_pushup",
+      "name": "무릎 지지 팔굽혀펴기",
+      "name_en": "Push-Up (modified)",
+      "target_domains": [
+        "pushups_2min"
+      ],
+      "body_region": "upper_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill (modified), Push-Up",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX003",
+      "slug": "situp",
+      "name": "윗몸일으키기",
+      "name_en": "Sit-Up",
+      "target_domains": [
+        "situps_2min"
+      ],
+      "body_region": "trunk",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ROK_MND_ANNEX31",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "남군 윗몸일으키기(2분); 종목 및 평가 기준만 참조",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX004",
+      "slug": "bent_leg_raise",
+      "name": "굽힌 다리 들기",
+      "name_en": "Bent-Leg Raise",
+      "target_domains": [
+        "situps_2min"
+      ],
+      "body_region": "trunk",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_CORE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Four for the Core",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX005",
+      "slug": "side_bridge",
+      "name": "사이드 브리지",
+      "name_en": "Side Bridge",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "trunk",
+      "category": "hold",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "hold_seconds": {
+          "min": 10,
+          "max": 30,
+          "unit": "seconds"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 90,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_CORE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Four for the Core",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX006",
+      "slug": "back_bridge",
+      "name": "백 브리지",
+      "name_en": "Back Bridge",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "trunk",
+      "category": "hold",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "hold_seconds": {
+          "min": 10,
+          "max": 30,
+          "unit": "seconds"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 90,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_CORE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Four for the Core",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX007",
+      "slug": "quadraplex",
+      "name": "대각선 팔·다리 들기",
+      "name_en": "Quadraplex",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "trunk",
+      "category": "hold",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "hold_seconds": {
+          "min": 10,
+          "max": 30,
+          "unit": "seconds"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 90,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_CORE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Four for the Core",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX008",
+      "slug": "lateral_leg_raise",
+      "name": "옆으로 다리 들기",
+      "name_en": "Lateral Leg Raise",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_HIP",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Hip Stability Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX009",
+      "slug": "medial_leg_raise",
+      "name": "안쪽 다리 들기",
+      "name_en": "Medial Leg Raise",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_HIP",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Hip Stability Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX010",
+      "slug": "bent_leg_lateral_raise",
+      "name": "굽힌 다리 옆으로 들기",
+      "name_en": "Bent-Leg Lateral Raise",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_HIP",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Hip Stability Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX011",
+      "slug": "single_leg_tuck",
+      "name": "한 다리 당기기",
+      "name_en": "Single-Leg Tuck",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_HIP",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Hip Stability Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX012",
+      "slug": "single_leg_over",
+      "name": "누워 다리 넘기기",
+      "name_en": "Single Leg Over",
+      "target_domains": [
+        "mobility"
+      ],
+      "body_region": "trunk",
+      "category": "hold",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "hold_seconds": {
+          "min": 10,
+          "max": 30,
+          "unit": "seconds"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 90,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_HIP",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "4: Hip Stability Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX013",
+      "slug": "bend_reach",
+      "name": "상체 굽혀 뻗기",
+      "name_en": "Bend and Reach",
+      "target_domains": [
+        "mobility"
+      ],
+      "body_region": "whole_body",
+      "category": "mobility",
+      "difficulty": "basic",
+      "required_equipment": [],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 2,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 5
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX014",
+      "slug": "rear_lunge",
+      "name": "뒤로 런지",
+      "name_en": "Rear Lunge",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX015",
+      "slug": "high_jumper",
+      "name": "하이 점프",
+      "name_en": "High Jumper",
+      "target_domains": [
+        "run_3km"
+      ],
+      "body_region": "lower_body",
+      "category": "power",
+      "difficulty": "intermediate",
+      "required_equipment": [
+        "flat_surface"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 3,
+          "max": 8,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique",
+        "technique_instruction_required"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX016",
+      "slug": "rower",
+      "name": "로워 동작",
+      "name_en": "Rower",
+      "target_domains": [
+        "situps_2min"
+      ],
+      "body_region": "trunk",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX017",
+      "slug": "squat_bender",
+      "name": "스쿼트 벤더",
+      "name_en": "Squat Bender",
+      "target_domains": [
+        "mobility"
+      ],
+      "body_region": "whole_body",
+      "category": "mobility",
+      "difficulty": "basic",
+      "required_equipment": [],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 2,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 5
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX018",
+      "slug": "windmill",
+      "name": "윈드밀",
+      "name_en": "Windmill",
+      "target_domains": [
+        "mobility"
+      ],
+      "body_region": "trunk",
+      "category": "mobility",
+      "difficulty": "basic",
+      "required_equipment": [],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 2,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 5
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX019",
+      "slug": "forward_lunge",
+      "name": "앞으로 런지",
+      "name_en": "Forward Lunge",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX020",
+      "slug": "prone_row",
+      "name": "엎드려 로우",
+      "name_en": "Prone Row",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "upper_body",
+      "category": "strength",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX021",
+      "slug": "bent_leg_twist",
+      "name": "굽힌 다리 몸통 회전",
+      "name_en": "Bent-Leg Body Twist",
+      "target_domains": [
+        "mobility"
+      ],
+      "body_region": "trunk",
+      "category": "mobility",
+      "difficulty": "basic",
+      "required_equipment": [
+        "mat"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 2,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 5
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "ATP_PD",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "3: Preparation Drill",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX022",
+      "slug": "sumo_squat",
+      "name": "스모 스쿼트",
+      "name_en": "Sumo Squat",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "loaded_strength",
+      "difficulty": "intermediate",
+      "required_equipment": [
+        "kettlebell"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        },
+        "external_load_kg": {
+          "min": 2,
+          "max": 12,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique",
+        "technique_instruction_required"
+      ],
+      "evidence_ids": [
+        "ATP_STC",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "13: Strength Training Circuit",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX023",
+      "slug": "step_up",
+      "name": "8카운트 스텝업",
+      "name_en": "8-Count Step-Up",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "lower_body",
+      "category": "loaded_strength",
+      "difficulty": "intermediate",
+      "required_equipment": [
+        "step",
+        "kettlebell"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        },
+        "external_load_kg": {
+          "min": 2,
+          "max": 12,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique",
+        "technique_instruction_required"
+      ],
+      "evidence_ids": [
+        "ATP_STC",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "13: Strength Training Circuit",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX024",
+      "slug": "pull_up",
+      "name": "턱걸이",
+      "name_en": "Pull-Up",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "upper_body",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "required_equipment": [
+        "pullup_bar"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 1,
+          "max": 8,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique",
+        "technique_instruction_required"
+      ],
+      "evidence_ids": [
+        "ATP_STC",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "13: Strength Training Circuit",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX025",
+      "slug": "bent_over_row",
+      "name": "벤트오버 로우",
+      "name_en": "Bent-Over Row",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "upper_body",
+      "category": "loaded_strength",
+      "difficulty": "intermediate",
+      "required_equipment": [
+        "kettlebell"
+      ],
+      "allowed_dose": {
+        "sets": {
+          "min": 1,
+          "max": 3,
+          "unit": "sets"
+        },
+        "reps": {
+          "min": 5,
+          "max": 15,
+          "unit": "reps"
+        },
+        "rest_seconds": {
+          "min": 30,
+          "max": 120,
+          "unit": "seconds"
+        },
+        "external_load_kg": {
+          "min": 2,
+          "max": 12,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique",
+        "technique_instruction_required"
+      ],
+      "evidence_ids": [
+        "ATP_STC",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "13: Strength Training Circuit",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX026",
+      "slug": "continuous_run",
+      "name": "지속 달리기",
+      "name_en": "Ability Group Run",
+      "target_domains": [
+        "run_3km"
+      ],
+      "body_region": "whole_body",
+      "category": "endurance",
+      "difficulty": "basic",
+      "required_equipment": [
+        "flat_route"
+      ],
+      "allowed_dose": {
+        "duration_minutes": {
+          "min": 10,
+          "max": 30,
+          "unit": "minutes"
+        },
+        "external_load_kg": {
+          "min": 0,
+          "max": 0,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "FM_ENDURANCE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "심폐지구력 및 Ability Group Run 관련 절",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX027",
+      "slug": "interval_run",
+      "name": "30초 달리기·60초 회복 반복",
+      "name_en": "30:60s",
+      "target_domains": [
+        "run_3km"
+      ],
+      "body_region": "whole_body",
+      "category": "interval",
+      "difficulty": "intermediate",
+      "required_equipment": [
+        "flat_route"
+      ],
+      "allowed_dose": {
+        "rounds": {
+          "min": 4,
+          "max": 8,
+          "unit": "rounds"
+        },
+        "work_seconds": {
+          "min": 30,
+          "max": 30,
+          "unit": "seconds"
+        },
+        "recovery_seconds": {
+          "min": 60,
+          "max": 60,
+          "unit": "seconds"
+        },
+        "external_load_kg": {
+          "min": 0,
+          "max": 0,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique",
+        "technique_instruction_required"
+      ],
+      "evidence_ids": [
+        "FM_ENDURANCE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "30:60s interval training 관련 절",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX028",
+      "slug": "walk_run",
+      "name": "걷기·달리기 교대",
+      "name_en": "Walk-to-Run",
+      "target_domains": [
+        "run_3km"
+      ],
+      "body_region": "whole_body",
+      "category": "endurance",
+      "difficulty": "basic",
+      "required_equipment": [
+        "flat_route"
+      ],
+      "allowed_dose": {
+        "duration_minutes": {
+          "min": 10,
+          "max": 30,
+          "unit": "minutes"
+        },
+        "external_load_kg": {
+          "min": 0,
+          "max": 0,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "FM_ENDURANCE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "Walk-to-Run progression 관련 절",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX029",
+      "slug": "walk",
+      "name": "무군장 보행",
+      "name_en": "Unloaded Walking",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "whole_body",
+      "category": "endurance",
+      "difficulty": "basic",
+      "required_equipment": [
+        "flat_route"
+      ],
+      "allowed_dose": {
+        "duration_minutes": {
+          "min": 10,
+          "max": 30,
+          "unit": "minutes"
+        },
+        "external_load_kg": {
+          "min": 0,
+          "max": 0,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 3
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique"
+      ],
+      "evidence_ids": [
+        "LOAD_GUIDANCE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "점진적 행군 적응 원칙을 참조한 시제품 무군장 보행 항목",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    },
+    {
+      "exercise_id": "EX030",
+      "slug": "loaded_walk",
+      "name": "군장 보행",
+      "name_en": "Loaded March",
+      "target_domains": [
+        "load_preparation"
+      ],
+      "body_region": "whole_body",
+      "category": "loaded_walk",
+      "difficulty": "intermediate",
+      "required_equipment": [
+        "rucksack",
+        "flat_route"
+      ],
+      "allowed_dose": {
+        "distance_km": {
+          "min": 1,
+          "max": 5,
+          "unit": "km"
+        },
+        "speed_kmh": {
+          "min": 3,
+          "max": 5,
+          "unit": "km/h"
+        },
+        "external_load_kg": {
+          "min": 5,
+          "max": 15,
+          "unit": "kg"
+        }
+      },
+      "frequency_per_week": {
+        "min": 1,
+        "max": 1
+      },
+      "restrictions": [
+        "stop_if_pain",
+        "use_registered_technique",
+        "technique_instruction_required"
+      ],
+      "evidence_ids": [
+        "LOAD_GUIDANCE",
+        "DEMO_RULES_V1"
+      ],
+      "evidence_location": "개인 체력·체격을 고려한 점진적 행군 훈련 원칙",
+      "dose_basis": "prototype_assumption_not_validated_prescription",
+      "target_mapping_basis": "prototype_training_category_not_individual_diagnosis"
+    }
+  ]
+}

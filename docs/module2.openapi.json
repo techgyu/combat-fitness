@@ -1,0 +1,489 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Module 1 → Module 2 접수 계약",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8001"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "모듈 2 상태",
+        "responses": {
+          "200": {
+            "description": "상태/계약버전/실제·모의 구분",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "contract_version",
+                    "mode"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "ok"
+                    },
+                    "contract_version": {
+                      "const": "2.0.0"
+                    },
+                    "mode": {
+                      "enum": [
+                        "mock",
+                        "real"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans": {
+      "post": {
+        "summary": "모듈 1 결과를 수신하고 접수 확인",
+        "description": "모듈 2가 구현할 endpoint. 중복 request_id 재시도 정책 및 계획 조회 API는 모듈 2에서 별도 확장.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "접수 확인",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "잘못된 JSON",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "입력·계약 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SoldierInput": {
+        "type": "object",
+        "required": [
+          "soldier_id",
+          "age",
+          "sex",
+          "role",
+          "is_synthetic",
+          "height_cm",
+          "weight_kg",
+          "combat_load_kg",
+          "pushups_2min",
+          "situps_2min"
+        ],
+        "properties": {
+          "soldier_id": {
+            "type": "string",
+            "pattern": "^[0-9]{2}-[0-9]{8}$",
+            "example": "22-00000001",
+            "description": "군번. DB 기본 키 / URL 조회 키. 가상 번호."
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 18,
+            "maximum": 29
+          },
+          "age_basis": {
+            "const": "calendar_year_minus_birth_year"
+          },
+          "sex": {
+            "const": "male"
+          },
+          "role": {
+            "const": "infantry_rifleman"
+          },
+          "is_synthetic": {
+            "const": true
+          },
+          "height_cm": {
+            "type": "number",
+            "minimum": 100,
+            "maximum": 250
+          },
+          "weight_kg": {
+            "type": "number",
+            "minimum": 20,
+            "maximum": 350
+          },
+          "bmi": {
+            "type": "number"
+          },
+          "combat_load_kg": {
+            "const": 15
+          },
+          "pushups_2min": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "situps_2min": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "run_3km_seconds": {
+            "type": "number",
+            "minimum": 60,
+            "maximum": 7200
+          },
+          "run_3km_time": {
+            "type": [
+              "string",
+              "number"
+            ],
+            "description": "MM:SS 문자열 또는 run_3km_unit과 함께 입력하는 숫자."
+          },
+          "run_3km_unit": {
+            "enum": [
+              "s",
+              "sec",
+              "second",
+              "seconds",
+              "min",
+              "minute",
+              "minutes",
+              "mm:ss"
+            ]
+          },
+          "record_schema_version": {
+            "const": "2.0"
+          },
+          "pushups_duration_seconds": {
+            "const": 120
+          },
+          "situps_duration_seconds": {
+            "const": 120
+          },
+          "run_distance_m": {
+            "const": 3000
+          },
+          "baseline_test_load_kg": {
+            "const": 0
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "run_3km_seconds"
+            ],
+            "not": {
+              "required": [
+                "run_3km_time"
+              ]
+            }
+          },
+          {
+            "required": [
+              "run_3km_time"
+            ],
+            "not": {
+              "required": [
+                "run_3km_seconds"
+              ]
+            }
+          }
+        ],
+        "description": "1분 기록 필드는 거부합니다. 기준 측정은 2분/3km/무군장. is_synthetic=true인 가상 사례만 지원."
+      },
+      "Module1Result": {
+        "type": "object",
+        "required": [
+          "contract_version",
+          "soldier_id",
+          "profile",
+          "column_order",
+          "column_units",
+          "difference_operation",
+          "now_matrix",
+          "goal_matrix",
+          "difference_matrix",
+          "current_records",
+          "goal_records",
+          "reference_records",
+          "load_context",
+          "training_context",
+          "planning_request",
+          "measurement_protocol",
+          "versions",
+          "resources_sha256"
+        ],
+        "properties": {
+          "contract_version": {
+            "const": "2.0.0"
+          },
+          "soldier_id": {
+            "type": "string",
+            "pattern": "^[0-9]{2}-[0-9]{8}$",
+            "example": "22-00000001",
+            "description": "군번. DB 기본 키 / URL 조회 키. 가상 번호."
+          },
+          "profile": {
+            "type": "object",
+            "required": [
+              "age",
+              "age_basis",
+              "sex",
+              "role",
+              "height_cm",
+              "weight_kg",
+              "bmi",
+              "is_synthetic"
+            ]
+          },
+          "column_order": {
+            "const": [
+              "pushups_2min",
+              "situps_2min",
+              "run_3km_seconds",
+              "load_to_body_weight_ratio"
+            ]
+          },
+          "column_units": {
+            "const": [
+              "repetitions/120s",
+              "repetitions/120s",
+              "s",
+              "dimensionless"
+            ]
+          },
+          "difference_operation": {
+            "const": "goal_minus_now"
+          },
+          "now_matrix": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "goal_matrix": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "difference_matrix": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "current_records": {
+            "type": "object"
+          },
+          "goal_records": {
+            "type": "object"
+          },
+          "reference_records": {
+            "type": "object"
+          },
+          "measurement_protocol": {
+            "type": "object"
+          },
+          "load_context": {
+            "type": "object",
+            "required": [
+              "combat_load_kg",
+              "usage",
+              "readiness_assessed",
+              "load_to_body_weight_ratio"
+            ]
+          },
+          "training_context": {
+            "type": "object"
+          },
+          "planning_request": {
+            "type": "object"
+          },
+          "versions": {
+            "type": "object",
+            "required": [
+              "target",
+              "catalog",
+              "rules",
+              "measurement_protocol",
+              "validator"
+            ]
+          },
+          "resources_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "description": "Goal은 현재 기록과 관계없이 연령별 1급 기준 기록으로 고정한다. 차이는 Goal - Now 그대로 보존한다. 횟수 음수/달리기 양수는 현재 기준 초과, 횟수 양수/달리기 음수는 개선 필요를 뜻한다. 4열 하중비 차이는 0이며 실제 하중비는 load_context에 전달한다."
+      },
+      "Resources": {
+        "type": "object",
+        "required": [
+          "target_criteria",
+          "exercise_catalog",
+          "planning_rules"
+        ],
+        "properties": {
+          "target_criteria": {
+            "type": "object"
+          },
+          "exercise_catalog": {
+            "type": "object"
+          },
+          "planning_rules": {
+            "type": "object"
+          }
+        }
+      },
+      "PlanRequest": {
+        "type": "object",
+        "required": [
+          "contract_version",
+          "request_id",
+          "module1_result",
+          "shared_resources"
+        ],
+        "properties": {
+          "contract_version": {
+            "const": "2.0.0"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "module1_result": {
+            "$ref": "#/components/schemas/Module1Result"
+          },
+          "shared_resources": {
+            "$ref": "#/components/schemas/Resources"
+          }
+        }
+      },
+      "PlanReceipt": {
+        "type": "object",
+        "required": [
+          "contract_version",
+          "request_id",
+          "receipt_id",
+          "status",
+          "mode"
+        ],
+        "properties": {
+          "contract_version": {
+            "const": "2.0.0"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "receipt_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "accepted"
+          },
+          "mode": {
+            "enum": [
+              "mock",
+              "real"
+            ]
+          },
+          "plan": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "details"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

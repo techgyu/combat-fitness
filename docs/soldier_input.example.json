@@ -1,0 +1,18 @@
+{
+  "soldier_id": "22-00000001",
+  "is_synthetic": true,
+  "age": 23,
+  "age_basis": "calendar_year_minus_birth_year",
+  "sex": "male",
+  "role": "infantry_rifleman",
+  "height_cm": 175,
+  "weight_kg": 75,
+  "combat_load_kg": 15,
+  "pushups_2min": 48,
+  "situps_2min": 60,
+  "run_3km_seconds": 960,
+  "pushups_duration_seconds": 120,
+  "situps_duration_seconds": 120,
+  "run_distance_m": 3000,
+  "baseline_test_load_kg": 0
+}

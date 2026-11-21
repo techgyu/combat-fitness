@@ -1,0 +1,26 @@
+{
+  "rules_version": "planning_demo_v1.0.0",
+  "basis": "prototype_assumptions",
+  "duration_weeks": 8,
+  "min_exercises_per_week": 2,
+  "max_exercises_per_week": 6,
+  "max_exercise_sessions_per_week": 15,
+  "max_hard_sessions_per_week": 3,
+  "min_rest_days_per_week": 1,
+  "minimum_same_region_recovery_hours": 48,
+  "max_loaded_walk_sessions_per_week": 1,
+  "loaded_walk_rule": "하중·거리·속도를 같은 주에 동시에 증가시키지 않는다.",
+  "goal_policy": "reference_grade1_and_load_preparation",
+  "load_ratio_usage": "reference_only",
+  "guarantee_target_achievement": false,
+  "required_domains_over_plan": [
+    "pushups_2min",
+    "situps_2min",
+    "run_3km",
+    "load_preparation"
+  ],
+  "max_revisions_after_initial": 2,
+  "unknown_equipment_policy": "확인되지 않은 장비는 사용 가능하다고 가정하지 않는다.",
+  "unknown_restrictions_policy": "누락된 제한사항을 제한 없음으로 해석하지 않는다.",
+  "dose_limits_note": "주간 구성 상한과 운동량 범위는 시제품 검증용이며 검증된 운동 처방이 아니다."
+}

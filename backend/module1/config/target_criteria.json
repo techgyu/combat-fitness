@@ -1,0 +1,73 @@
+{
+  "target_version": "rok_male_grade1_fixed_v2.0.0",
+  "source": {
+    "title": "국방부 부대관리훈령 별표 31 체력검정 기준표",
+    "url": "https://law.go.kr/LSW/flDownload.do?bylClsCd=200201&flNm=%5B%EB%B3%84%ED%91%9C+31%5D+%EC%B2%B4%EB%A0%A5%EA%B2%80%EC%A0%95+%EA%B8%B0%EC%A4%80%ED%91%9C%28%EC%A0%9C389%EC%A1%B0+%EA%B4%80%EB%A0%A8%29&flSeq=162617133",
+    "verified_on": "2026-11-21",
+    "id": "ROK_MND_ANNEX31"
+  },
+  "applicability": {
+    "sex": "male",
+    "prototype_age_min": 18,
+    "prototype_age_max": 29,
+    "age_basis": "calendar_year_minus_birth_year",
+    "age_basis_note": "합성 데이터의 연령 정의를 유지한 시제품 매핑이다. 실제 적용 시 해당 군의 체력검정 연령 산정 지침을 확인한다."
+  },
+  "target_grade": "1급",
+  "measurement_protocol": {
+    "pushups_duration_seconds": 120,
+    "situps_duration_seconds": 120,
+    "run_distance_m": 3000,
+    "baseline_test_load_kg": 0,
+    "protocol_note": "15kg은 훈련 준비의 참고 조건이다. 세 체력검정의 기록에 15kg 군장을 적용하지 않는다. 세부 자세와 계수 방식은 같은 판본의 실시요령에 맞춘다.",
+    "version": "baseline_120s_3km_unloaded_v1"
+  },
+  "thresholds": [
+    {
+      "age_min": 18,
+      "age_max": 25,
+      "pushups_2min": 64,
+      "situps_2min": 78,
+      "run_3km_seconds": 812
+    },
+    {
+      "age_min": 26,
+      "age_max": 29,
+      "pushups_2min": 62,
+      "situps_2min": 76,
+      "run_3km_seconds": 832
+    }
+  ],
+  "goal_policy": {
+    "preserve_profile": true,
+    "pushups": "reference",
+    "situps": "reference",
+    "run_3km_seconds": "reference",
+    "normalization_reference": "none_raw_records_only",
+    "difference_operation": "goal_minus_now",
+    "mode": "fixed_grade1_reference",
+    "difference_clipping": "none",
+    "difference_interpretation": {
+      "repetitions": "양수: 기준 미달 횟수, 음수: 기준 초과 횟수, 0: 기준과 동일",
+      "run_3km_seconds": "음수: 단축할 시간, 양수: 기준보다 빠른 시간, 0: 기준과 동일",
+      "load_ratio": "현재 체중과 하중을 유지하므로 차이는 0"
+    }
+  },
+  "load_context": {
+    "combat_load_kg": 15,
+    "load_ratio_formula": "combat_load_kg / weight_kg",
+    "usage": "reference_only",
+    "modify_target_thresholds": false,
+    "adjust_volume_from_ratio_alone": false,
+    "readiness_assessed": false
+  },
+  "planning": {
+    "weeks": 8,
+    "weekly_multiple_exercises": true,
+    "catalog_only": true,
+    "primary_goal": "연령별 1급 기준 달성 준비 및 이미 충족한 종목의 체력 유지",
+    "secondary_goal": "15kg 군장 훈련 수행에 필요한 체력 준비",
+    "guarantee_target_achievement": false,
+    "already_meeting_policy": "차이의 부호로 기준 충족 여부를 해석한다. 기준보다 좋은 기록을 낮추도록 처방하지 않는다."
+  }
+}

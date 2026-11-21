@@ -1,0 +1,7 @@
+﻿fitness_scenario,count,actual_percent,model_expected_percent,basis
+balanced_low,164,16.4,16.6667,demo_scenario_equal_probability
+balanced_mid,161,16.1,16.6667,demo_scenario_equal_probability
+balanced_high,147,14.7,16.6667,demo_scenario_equal_probability
+upper_body_gap,171,17.1,16.6667,demo_scenario_equal_probability
+situp_gap,150,15.0,16.6667,demo_scenario_equal_probability
+aerobic_gap,207,20.7,16.6667,demo_scenario_equal_probability
