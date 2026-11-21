@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
-# ---------- 모듈 1 → 모듈 2 입력 (docs/PROJECT_SPEC.md 1.6) ----------
+# ---------- 모듈 1 → 모듈 2 입력 (docs/module2/PROJECT_SPEC_v3.md 1.6) ----------
 
 
 class LoadContext(BaseModel):

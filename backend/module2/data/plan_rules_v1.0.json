@@ -11,11 +11,11 @@
     "improvement_columns": ["pushups_2min", "situps_2min", "run_3km_seconds"],
     "combat_load_kg": 15,
     "load_ratio_tolerance": 0.01,
-    "source": "docs/PROJECT_SPEC.md 1.6", "grade": "A", "confirm_needed": false
+    "source": "docs/module2/PROJECT_SPEC_v3.md 1.6", "grade": "A", "confirm_needed": false
   },
 
-  "plan_weeks": {"value": 8, "source": "docs/PROJECT_SPEC.md 2.2", "grade": "A", "confirm_needed": false},
-  "max_revisions": {"value": 2, "source": "docs/PROJECT_SPEC.md 2.5", "grade": "A", "confirm_needed": false},
+  "plan_weeks": {"value": 8, "source": "docs/module2/PROJECT_SPEC_v3.md 2.2", "grade": "A", "confirm_needed": false},
+  "max_revisions": {"value": 2, "source": "docs/module2/PROJECT_SPEC_v3.md 2.5", "grade": "A", "confirm_needed": false},
 
   "exercises_per_week": {"min": 3, "max": 6, "source": "draft", "grade": "D", "confirm_needed": true},
 
@@ -107,6 +107,6 @@
     "discouraged_patterns": ["(?<![0-9])세트 [0-9]+회"],
     "note_patterns": "'세트 4회, 28회' is confused with sessions per week; write '4세트 28회'.",
     "note_unique": "Reasons for the same exercise must differ across weeks even after masking numbers.",
-    "source": "CLAUDE.md rules 3, 5, 7; project decision 2026-11-21", "grade": "A", "confirm_needed": false
+    "source": "docs/module2/PROJECT_SPEC_v3.md 2.4; project decision 2026-11-21", "grade": "A", "confirm_needed": false
   }
 }

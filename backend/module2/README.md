@@ -96,7 +96,7 @@ curl -X POST http://localhost:8000/plan \
   }'
 ```
 
-입력 형식은 [PROJECT_SPEC.md 1.6절](../../docs/PROJECT_SPEC.md)을 따릅니다. 서버 실행 중에는 http://localhost:8000/docs 에서 브라우저로 직접 요청을 보내 볼 수도 있습니다.
+입력 형식은 [PROJECT_SPEC_v3.md 1.6절](../../docs/module2/PROJECT_SPEC_v3.md)을 따릅니다. 서버 실행 중에는 http://localhost:8000/docs 에서 브라우저로 직접 요청을 보내 볼 수도 있습니다.
 
 ### 서버 없이 한 번 실행
 

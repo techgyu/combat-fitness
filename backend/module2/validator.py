@@ -1,4 +1,4 @@
-"""코드 기반 계획 검증 (docs/PROJECT_SPEC.md 2.4).
+"""코드 기반 계획 검증 (docs/module2/PROJECT_SPEC_v3.md 2.4).
 
 LLM 없이 동작하는 순수 함수. 모든 기준값은 데이터 팩(catalog)에서 읽음.
 """

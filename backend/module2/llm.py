@@ -1,4 +1,4 @@
-"""모듈 2에서 모델을 호출하는 유일한 장소 (CLAUDE.md 규칙 9).
+"""모듈 2에서 모델을 호출하는 유일한 장소.
 
 `PlanLLM`은 planner가 의존하는 인터페이스.
 `ClaudePlanLLM`은 Claude API를 호출하고, 테스트는 같은 인터페이스를 구현한 가짜 LLM을 사용.

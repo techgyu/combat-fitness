@@ -1,4 +1,4 @@
-"""모듈 1 입력이 API 계약(docs/PROJECT_SPEC.md 1.6)에 맞는지 검증.
+"""모듈 1 입력이 API 계약(docs/module2/PROJECT_SPEC_v3.md 1.6)에 맞는지 검증.
 
 실패하면 입력 오류를 반환하고 Claude를 호출하지 않음.
 """
