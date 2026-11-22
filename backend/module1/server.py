@@ -14,7 +14,7 @@ REPO = ROOT.parent.parent
 
 
 def create_server(db_path=None, seed_path=None, module2_url="http://127.0.0.1:8001",
-                  host="127.0.0.1", port=8000, timeout=5):
+                  host="127.0.0.1", port=8000, timeout=600):
     engine = Module1()
     store = SoldierStore(db_path or ROOT / "data" / "soldiers.sqlite3")
     store.seed_once(seed_path or ROOT / "data" / "synthetic_soldiers.json")
@@ -57,7 +57,8 @@ def create_server(db_path=None, seed_path=None, module2_url="http://127.0.0.1:80
                 if match:
                     row = store.get(match[1])
                     result, report = engine.evaluate(row)
-                    return self.send_json(200, {"record": row, "result": result, "warnings": report["warnings"]})
+                    return self.send_json(200, {"record": row, "result": result, "warnings": report["warnings"],
+                                                "latest_plan": store.latest_plan(row["soldier_id"])})
             if method == "POST":
                 body = self.read_json()
                 if path in ("/api/v1/soldiers", "/api/v1/evaluate"):
@@ -99,8 +100,9 @@ def main():
     parser.add_argument("--db", type=Path, default=ROOT / "data" / "soldiers.sqlite3")
     parser.add_argument("--seed-file", type=Path, default=ROOT / "data" / "synthetic_soldiers.json")
     parser.add_argument("--module2-url", default=os.environ.get("MODULE2_BASE_URL", "http://127.0.0.1:8001"))
+    parser.add_argument("--module2-timeout", type=float, default=600)
     args = parser.parse_args()
-    server = create_server(args.db, args.seed_file, args.module2_url, port=args.port)
+    server = create_server(args.db, args.seed_file, args.module2_url, port=args.port, timeout=args.module2_timeout)
     print(f"Web + Module 1: http://127.0.0.1:{server.server_port}", flush=True)
     print(f"Module 2 target: {args.module2_url}", flush=True)
     try:

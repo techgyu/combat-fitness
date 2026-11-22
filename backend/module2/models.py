@@ -9,23 +9,26 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class LoadContext(BaseModel):
+    model_config = ConfigDict(allow_inf_nan=False)
     combat_load_kg: float
     load_to_body_weight_ratio: float
     usage: str
 
 
 class Soldier(BaseModel):
-    soldier_id: str
+    model_config = ConfigDict(allow_inf_nan=False)
+    soldier_id: str = Field(pattern=r"^[0-9]{2}-[0-9]{8}$")
     height_cm: float = Field(gt=0)
     weight_kg: float = Field(gt=0)
     bmi: Optional[float] = None
-    age: int = Field(gt=0)
+    age: int = Field(ge=18, le=29)
     sex: str
     role: str
     synthetic: bool = True
 
 
 class Records(BaseModel):
+    model_config = ConfigDict(allow_inf_nan=False)
     pushups_2min: float = Field(ge=0)
     situps_2min: float = Field(ge=0)
     run_3km_seconds: float = Field(gt=0)
@@ -38,6 +41,7 @@ class Versions(BaseModel):
 
 
 class ModuleOnePayload(BaseModel):
+    model_config = ConfigDict(allow_inf_nan=False)
     schema_version: str
     operation: str
     column_order: list[str]
@@ -57,8 +61,8 @@ class Need(BaseModel):
     column: str
     delta: float
     unit: str
-    direction: str  # "increase" | "decrease" | "met"
-    amount: float  # abs(delta)
+    direction: str  # "increase" | "decrease" | "met" | "maintain"
+    amount: float  # improvement required; zero when already at/above reference
 
 
 class PlanInput(BaseModel):
@@ -68,15 +72,15 @@ class PlanInput(BaseModel):
     needs: list[Need]
 
     @property
-    def nonzero_columns(self) -> list[str]:
-        return [n.column for n in self.needs if n.direction != "met"]
+    def improvement_columns(self) -> list[str]:
+        return [n.column for n in self.needs if n.direction in ("increase", "decrease")]
 
 
 # ---------- Claude가 작성한 계획 ----------
 
 
 class PlanRow(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
 
     week: int
     exercise_id: str

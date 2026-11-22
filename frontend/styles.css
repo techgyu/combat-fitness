@@ -293,3 +293,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   html { scroll-behavior: auto; }
   button { transition: none; }
 }
+
+/* Integrated 8-week training plan */
+.plan-panel{margin:24px 0;padding:28px;min-width:0}.plan-status{padding:12px 16px;background:#eef3e8;color:#354d28;border-left:4px solid #63784c;font-weight:700}.plan-status.error{background:#fff0ed;color:#993c2d;border-color:#993c2d}.plan-summary{line-height:1.8;white-space:pre-wrap}.plan-needs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.week-plan{margin:12px 0;border:1px solid #d9e0e6}.week-plan>summary{padding:16px;background:#f3f6f8;cursor:pointer;color:#172c43;font-weight:700}.plan-table{min-width:850px;width:100%;table-layout:fixed}.plan-table th:nth-child(1){width:16%}.plan-table th:nth-child(2){width:9%}.plan-table th:nth-child(3){width:15%}.plan-table th:nth-child(4){width:15%}.plan-table th:nth-child(5){width:33%}.plan-table th:nth-child(6){width:12%}.plan-table td{white-space:normal;overflow-wrap:anywhere;vertical-align:top;line-height:1.6}.plan-validation{margin:20px 0}.plan-validation summary{cursor:pointer;font-weight:700;padding:12px 0}.plan-validation li{overflow-wrap:anywhere;line-height:1.6;margin:6px 0}@media(max-width:600px){.plan-panel{padding:16px}.plan-panel>.section-heading{gap:12px;flex-wrap:wrap}.plan-panel h2{font-size:18px}}

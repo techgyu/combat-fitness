@@ -43,12 +43,13 @@
               }
             }
           }
-        }
+        },
+        "description": "generation_ready는 API 키 설정 여부이며 실제 인증 유효성은 생성 시 확인한다."
       }
     },
     "/api/v1/plans": {
       "post": {
-        "summary": "모듈 1 결과를 수신하고 접수 확인",
+        "summary": "8주 계획 생성·검증 결과 반환",
         "description": "모듈 2가 구현할 endpoint. 중복 request_id 재시도 정책 및 계획 조회 API는 모듈 2에서 별도 확장.",
         "requestBody": {
           "required": true,
@@ -62,7 +63,7 @@
         },
         "responses": {
           "202": {
-            "description": "접수 확인",
+            "description": "모의 서버 전용 접수 응답 (계획 생성 없음)",
             "content": {
               "application/json": {
                 "schema": {
@@ -83,6 +84,46 @@
           },
           "422": {
             "description": "입력·계약 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "생성·검증 완료 (passed 또는 failed)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanReceipt"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Claude 인증 또는 API 오류",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "키 미설정, 호출 한도 또는 연결 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Claude 응답 시간 초과",
             "content": {
               "application/json": {
                 "schema": {
@@ -445,14 +486,37 @@
           },
           "plan": {
             "type": [
-              "object",
+              "array",
               "null"
-            ]
+            ],
+            "items": {
+              "type": "object"
+            }
           },
           "message": {
             "type": "string"
+          },
+          "generation_status": {
+            "enum": [
+              "passed",
+              "failed"
+            ]
+          },
+          "result": {
+            "type": "object",
+            "description": "검증 상태, 계획 행, 기록 비교, 검증 결과, 수정 이력"
+          },
+          "assumptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resources_sha256": {
+            "type": "string"
           }
-        }
+        },
+        "description": "status=accepted는 접수 성공이며, 실제 계획 통과는 result.status=passed로 확인한다. 실제 서버는 전체 결과를 반환하고 모의 서버만 plan=null이다."
       },
       "Error": {
         "type": "object",

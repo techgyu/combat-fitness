@@ -6,6 +6,10 @@ import importlib.util
 import json
 import math
 from pathlib import Path
+try:
+    from .planning_resources import load_planning_resources
+except ImportError:
+    from planning_resources import load_planning_resources
 
 ROOT = Path(__file__).resolve().parent
 CONTRACT_VERSION = "2.0.0"
@@ -101,6 +105,8 @@ class Module1:
         directory = Path(config_dir or ROOT / "config")
         self.resources = {name: decode_json((directory / (name + ".json")).read_text(encoding="utf-8"))
                           for name in ("target_criteria", "exercise_catalog", "planning_rules")}
+        if config_dir is None:
+            self.resources.update(load_planning_resources())
         validate_resources(self.resources)
         self.versions = {
             "target": self.resources["target_criteria"]["target_version"],

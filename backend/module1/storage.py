@@ -98,3 +98,10 @@ class SoldierStore:
             db.execute("INSERT INTO deliveries VALUES (?,?,?,?,?)", (
                 request_id, identifier, status, json.dumps(result, ensure_ascii=False),
                 datetime.now(timezone.utc).isoformat()))
+
+    def latest_plan(self, identifier):
+        with self.connect() as db:
+            rows = db.execute("SELECT result_json FROM deliveries WHERE soldier_id=? AND status='accepted' ORDER BY created_at DESC LIMIT 1",
+                              (identifier,)).fetchall()
+        response = json.loads(rows[0]["result_json"]) if rows else None
+        return response if response and response.get("result") else None

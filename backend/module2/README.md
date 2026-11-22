@@ -1,5 +1,7 @@
 # 모듈 2: 8주 운동 계획 생성·검증
 
+> 통합 실행은 저장소 루트의 [README](../../README.md)를 따른다. 기본 `start_demo.ps1`이 실제 모듈 2를 함께 실행한다. 공개 연동 경로는 `/api/v1/plans`이며 아래 `/plan` 예시는 단독 실행용 내부 입력이다. Goal은 연령별 1급으로 고정하고 기준 초과 기록은 유지 대상으로 처리한다.
+
 모듈 1이 보낸 차이 행렬과 장병 정보를 받아 Claude로 8주 운동 계획을 만들고, 코드로 검증합니다. 위반이 있으면 Claude에 수정을 요청하고 다시 검증합니다(최대 2회).
 
 모든 데이터는 합성 데이터입니다. 검증 통과는 등록된 규칙을 지켰다는 뜻이며, 실제 훈련 효과를 입증하지 않습니다.
@@ -21,7 +23,7 @@
 
 ## 설치
 
-프로젝트 루트(`combat_load_agent/`)에서 실행합니다. Python 3.12가 필요합니다.
+프로젝트 루트(`combat-fitness/`)에서 실행합니다. Python 3.11 이상을 사용합니다.
 
 ```bash
 python3.12 -m venv .venv
@@ -89,7 +91,7 @@ curl -X POST http://localhost:8000/plan \
     "difference_matrix": [[16, 18, -148, 0]],
     "improvement_columns": ["pushups_2min", "situps_2min", "run_3km_seconds"],
     "load_context": {"combat_load_kg": 15, "load_to_body_weight_ratio": 0.2, "usage": "reference_only"},
-    "soldier": {"soldier_id": "SYN-0001", "height_cm": 175, "weight_kg": 75, "bmi": 24.5, "age": 23, "sex": "M", "role": "infantry_rifleman", "synthetic": true},
+    "soldier": {"soldier_id": "22-00000001", "height_cm": 175, "weight_kg": 75, "bmi": 24.5, "age": 23, "sex": "M", "role": "infantry_rifleman", "synthetic": true},
     "current_records": {"pushups_2min": 48, "situps_2min": 60, "run_3km_seconds": 960},
     "goal_records": {"pushups_2min": 64, "situps_2min": 78, "run_3km_seconds": 812},
     "versions": {"standards": "1.0", "exercise_catalog": "1.0", "plan_rules": "1.0"}

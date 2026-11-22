@@ -12,7 +12,7 @@ SPEC_PAYLOAD: dict[str, Any] = {
     "difference_matrix": [[16, 18, -148, 0]],
     "improvement_columns": ["pushups_2min", "situps_2min", "run_3km_seconds"],
     "load_context": {"combat_load_kg": 15, "load_to_body_weight_ratio": 0.2, "usage": "reference_only"},
-    "soldier": {"soldier_id": "SYN-0001", "height_cm": 175, "weight_kg": 75, "bmi": 24.5, "age": 23,
+    "soldier": {"soldier_id": "22-00000001", "height_cm": 175, "weight_kg": 75, "bmi": 24.5, "age": 23,
                 "sex": "M", "role": "infantry_rifleman", "synthetic": True},
     "current_records": {"pushups_2min": 48, "situps_2min": 60, "run_3km_seconds": 960},
     "goal_records": {"pushups_2min": 64, "situps_2min": 78, "run_3km_seconds": 812},

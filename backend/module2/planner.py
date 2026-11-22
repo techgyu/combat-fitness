@@ -9,7 +9,8 @@ from typing import Any
 from .catalog import Catalog
 from .contract import ContractError, validate_contract
 from .llm import PlanLLM
-from .models import PlanInput, ValidationReport, Violation
+from .models import PlanInput, PlanRow, ValidationReport, Violation
+from pydantic import ValidationError
 from .prompts import build_initial_message, build_revision_message, build_system_prompt
 from .validator import build_report, validate_plan
 
@@ -31,11 +32,17 @@ def _invalid_output_report(error: str) -> ValidationReport:
 
 
 def _enrich_rows(plan: dict[str, Any] | None, catalog: Catalog) -> list[dict[str, Any]]:
-    if not plan:
+    if not isinstance(plan, dict) or not isinstance(plan.get("rows"), list):
         return []
     rows = []
-    for r in sorted(plan.get("rows", []), key=lambda r: (r.get("week", 0), r.get("exercise_id", ""))):
-        ex = catalog.exercise(r.get("exercise_id", ""))
+    normalized = []
+    for raw in plan["rows"]:
+        try:
+            normalized.append(PlanRow.model_validate(raw).model_dump())
+        except ValidationError:
+            continue  # The corresponding schema violation remains in the report/history.
+    for r in sorted(normalized, key=lambda row: (row["week"], row["exercise_id"])):
+        ex = catalog.exercise(r["exercise_id"])
         rows.append({**r, "exercise_name": ex["name"] if ex else None,
                      "category": ex["category"] if ex else None})
     return rows
@@ -110,7 +117,7 @@ def run_planner(raw_payload: dict[str, Any], llm: PlanLLM, catalog: Catalog) -> 
         "status": status,
         "stop_reason": stop_reason,
         **_overview(plan_input),
-        "summary": plan.get("summary") if plan else None,
+        "summary": plan.get("summary") if isinstance(plan, dict) and isinstance(plan.get("summary"), str) else None,
         "plan": _enrich_rows(plan, catalog),
         "validation": report.model_dump() if report else None,
         "revisions_used": max(0, len(history) - 1),

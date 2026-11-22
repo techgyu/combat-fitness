@@ -141,7 +141,7 @@ def test_missing_high_intensity_run_is_flagged():
 
 def test_high_intensity_run_not_required_when_run_goal_met():
     p = payload(difference_matrix=[[16, 18, 0, 0]],
-                goal_records={"pushups_2min": 64, "situps_2min": 78, "run_3km_seconds": 960})
+                current_records={"pushups_2min": 48, "situps_2min": 60, "run_3km_seconds": 812})
     pi = validate_contract(p, CATALOG)
     plan = valid_plan()
     plan["rows"] = [r for r in plan["rows"] if r["exercise_id"] != "EX03"]
@@ -182,7 +182,7 @@ def test_coverage_missing_for_nonzero_delta_is_flagged():
 
 def test_coverage_not_required_when_goal_already_met():
     p = payload(difference_matrix=[[0, 18, -148, 0]],
-                goal_records={"pushups_2min": 48, "situps_2min": 78, "run_3km_seconds": 812})
+                current_records={"pushups_2min": 64, "situps_2min": 60, "run_3km_seconds": 960})
     pi = validate_contract(p, CATALOG)
     plan = valid_plan()
     plan["summary"] = "윗몸일으키기 18회 증가와 3km 달리기 148초 단축을 목표로 한 8주 계획입니다."

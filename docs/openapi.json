@@ -195,7 +195,8 @@
               }
             }
           }
-        }
+        },
+        "description": "장병 원 기록, 목표와 차이, warnings, latest_plan(마지막 계획 결과 또는 null)을 반환한다."
       }
     },
     "/api/v1/evaluate": {
@@ -387,7 +388,8 @@
               }
             }
           }
-        }
+        },
+        "description": "저장된 장병으로 계획 생성 요청. 기본 대기 제한 600초. 검증 결과와 수정 이력을 저장하고 반환한다."
       }
     }
   },
@@ -741,14 +743,37 @@
           },
           "plan": {
             "type": [
-              "object",
+              "array",
               "null"
-            ]
+            ],
+            "items": {
+              "type": "object"
+            }
           },
           "message": {
             "type": "string"
+          },
+          "generation_status": {
+            "enum": [
+              "passed",
+              "failed"
+            ]
+          },
+          "result": {
+            "type": "object",
+            "description": "검증 상태, 계획 행, 기록 비교, 검증 결과, 수정 이력"
+          },
+          "assumptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resources_sha256": {
+            "type": "string"
           }
-        }
+        },
+        "description": "status=accepted는 접수 성공이며, 실제 계획 통과는 result.status=passed로 확인한다. 실제 서버는 전체 결과를 반환하고 모의 서버만 plan=null이다."
       },
       "Error": {
         "type": "object",

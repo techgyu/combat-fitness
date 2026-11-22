@@ -5,6 +5,8 @@
 from __future__ import annotations
 
 from typing import Any
+import json
+from pathlib import Path
 
 from pydantic import ValidationError
 
@@ -48,18 +50,19 @@ def validate_contract(raw: dict[str, Any], catalog: Catalog) -> PlanInput:
         raise ContractError(issues)
     push, sit, run, ratio = m[0]
 
-    # goal = max/min(current, 기준값)에서 나오는 부호 조건.
-    if push < 0:
-        issues.append(f"difference_matrix.pushups_2min: must be >= 0, got {push}")
-    if sit < 0:
-        issues.append(f"difference_matrix.situps_2min: must be >= 0, got {sit}")
-    if run > 0:
-        issues.append(f"difference_matrix.run_3km_seconds: must be <= 0, got {run}")
+    # Keep signed goal-current values, including performance above grade 1.
     if abs(ratio) > _EPS:
         issues.append(f"difference_matrix.load_to_body_weight_ratio: must be 0, got {ratio}")
 
     # 차이값은 goal - current와 같아야 함.
     cur, goal = payload.current_records, payload.goal_records
+    criteria = json.loads((Path(__file__).resolve().parents[1] / "module1/config/target_criteria.json").read_text(encoding="utf-8"))
+    reference = next(t for t in criteria["thresholds"] if t["age_min"] <= payload.soldier.age <= t["age_max"])
+    for col in spec["improvement_columns"]:
+        if getattr(goal, col) != reference[col]:
+            issues.append(f"goal_records.{col}: must equal the age-specific grade-1 reference ({reference[col]})")
+    if payload.soldier.sex not in ("M", "male") or payload.soldier.role != "infantry_rifleman":
+        issues.append("soldier: supported profile is male infantry_rifleman")
     for col, d in (("pushups_2min", push), ("situps_2min", sit), ("run_3km_seconds", run)):
         expected = getattr(goal, col) - getattr(cur, col)
         if abs(expected - d) > _EPS:
@@ -94,9 +97,13 @@ def validate_contract(raw: dict[str, Any], catalog: Catalog) -> PlanInput:
     units = dict(zip(spec["column_order"], spec["column_units"]))
     needs = []
     for col, d in (("pushups_2min", push), ("situps_2min", sit), ("run_3km_seconds", run)):
+        needs_improvement = d < -_EPS if col == "run_3km_seconds" else d > _EPS
         if abs(d) <= _EPS:
             direction = "met"
-        else:
+        elif needs_improvement:
             direction = "increase" if d > 0 else "decrease"
-        needs.append(Need(column=col, delta=d, unit=units[col], direction=direction, amount=abs(d)))
+        else:
+            direction = "maintain"
+        needs.append(Need(column=col, delta=d, unit=units[col], direction=direction,
+                          amount=abs(d) if needs_improvement else 0))
     return PlanInput(payload=payload, needs=needs)

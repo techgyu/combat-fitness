@@ -2,7 +2,10 @@
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit
-from module1_core import DomainError, decode_json
+try:
+    from .module1_core import DomainError, decode_json
+except ImportError:
+    from module1_core import DomainError, decode_json
 
 
 class JsonHandler(BaseHTTPRequestHandler):

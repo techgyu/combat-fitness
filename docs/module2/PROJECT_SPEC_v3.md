@@ -54,13 +54,13 @@
 
 ### 1.4. 목표 상태 설정
 
-키·체중·BMI·나이·성별·보직·전투하중은 유지하고, 세 체력 기록에 연령별 목표 기준을 적용한다. 이미 목표를 초과한 항목은 현재 기록을 유지한다.
+키·체중·BMI·나이·성별·보직·전투하중은 유지하고, 세 체력 기록에 연령별 목표 기준을 적용한다. Goal은 현재 기록과 관계없이 연령별 1급 기준으로 고정한다. 이미 기준을 초과한 항목은 운동 계획에서 현재 수준 유지 대상으로 처리하며 Goal 값 자체는 바꾸지 않는다.
 
 | 항목 | 목표 기록 |
 |---|---|
-| 팔굽혀펴기 | `max(현재 횟수, 1급 기준 횟수)` |
-| 윗몸일으키기 | `max(현재 횟수, 1급 기준 횟수)` |
-| 3km 달리기 | `min(현재 시간, 1급 기준 시간)` |
+| 팔굽혀펴기 | `연령별 1급 기준 횟수` |
+| 윗몸일으키기 | `연령별 1급 기준 횟수` |
+| 3km 달리기 | `연령별 1급 기준 시간` |
 
 목표 상태는 비교·계획 수립을 위한 목표이며, 8주 후 실제 도달 기록의 예측값이 아니다.
 
@@ -80,6 +80,8 @@
 
 `max`/`min` 규칙에 따라 부호는 고정된다: 팔굽혀펴기·윗몸일으키기 Δ ≥ 0, 3km Δ ≤ 0, 하중비 Δ = 0. 하중비 Δ 0은 군장 수행능력 충족 여부를 의미하지 않는다.
 
+> 통합 API는 [MODULE2_HANDOFF.md](../MODULE2_HANDOFF.md)의 envelope(`/api/v1/plans`)를 사용한다. 아래 JSON은 bridge가 변환하는 내부 planner 입력 형식이다.
+
 ### 1.6. API 계약 (모듈 1 → 모듈 2)
 
 열 순서와 단위는 고정한다.
@@ -93,7 +95,7 @@
   "difference_matrix": [[16, 18, -148, 0]],
   "improvement_columns": ["pushups_2min", "situps_2min", "run_3km_seconds"],
   "load_context": {"combat_load_kg": 15, "load_to_body_weight_ratio": 0.2, "usage": "reference_only"},
-  "soldier": {"soldier_id": "SYN-0001", "height_cm": 175, "weight_kg": 75, "bmi": 24.5, "age": 23, "sex": "M", "role": "infantry_rifleman", "synthetic": true},
+  "soldier": {"soldier_id": "22-00000001", "height_cm": 175, "weight_kg": 75, "bmi": 24.5, "age": 23, "sex": "M", "role": "infantry_rifleman", "synthetic": true},
   "current_records": {"pushups_2min": 48, "situps_2min": 60, "run_3km_seconds": 960},
   "goal_records": {"pushups_2min": 64, "situps_2min": 78, "run_3km_seconds": 812},
   "versions": {"standards": "1.0", "exercise_catalog": "1.0", "plan_rules": "1.0"}
@@ -108,8 +110,8 @@
 
 | 항목 | 차이값 해석 |
 |---|---|
-| 팔굽혀펴기·윗몸일으키기 | 양수는 증가가 필요한 횟수 |
-| 3km 달리기 | 음수의 절댓값은 단축이 필요한 시간 |
+| 팔굽혀펴기·윗몸일으키기 | 양수는 증가가 필요한 횟수, 음수는 기준 초과로 현재 수준 유지 |
+| 3km 달리기 | 음수의 절댓값은 단축이 필요한 시간, 양수는 기준보다 빠른 기록으로 현재 수준 유지 |
 | 세 항목의 0 | 해당 목표 기준 충족 |
 | 하중비 | 개선 필요량 분석에서 제외 |
 

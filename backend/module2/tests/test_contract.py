@@ -19,14 +19,14 @@ def test_spec_example_is_accepted_and_needs_are_derived():
     assert needs["pushups_2min"].direction == "increase" and needs["pushups_2min"].amount == 16
     assert needs["situps_2min"].direction == "increase" and needs["situps_2min"].amount == 18
     assert needs["run_3km_seconds"].direction == "decrease" and needs["run_3km_seconds"].amount == 148
-    assert pi.nonzero_columns == ["pushups_2min", "situps_2min", "run_3km_seconds"]
+    assert pi.improvement_columns == ["pushups_2min", "situps_2min", "run_3km_seconds"]
 
 
 def test_met_column_is_marked_met():
     p = payload(difference_matrix=[[0, 18, -148, 0]],
-                goal_records={"pushups_2min": 48, "situps_2min": 78, "run_3km_seconds": 812})
+                current_records={"pushups_2min": 64, "situps_2min": 60, "run_3km_seconds": 960})
     pi = validate_contract(p, CATALOG)
-    assert pi.nonzero_columns == ["situps_2min", "run_3km_seconds"]
+    assert pi.improvement_columns == ["situps_2min", "run_3km_seconds"]
 
 
 @pytest.mark.parametrize("override, fragment", [
@@ -34,8 +34,8 @@ def test_met_column_is_marked_met():
     ({"column_units": ["reps", "reps", "minutes", "ratio"]}, "column_units"),
     ({"schema_version": "1.0"}, "schema_version"),
     ({"difference_matrix": [[16, 18, -148]]}, "shape"),
-    ({"difference_matrix": [[16, 18, 148, 0]]}, "run_3km_seconds: must be <= 0"),
-    ({"difference_matrix": [[-2, 18, -148, 0]]}, "pushups_2min: must be >= 0"),
+    ({"difference_matrix": [[16, 18, 148, 0]]}, "goal - current"),
+    ({"difference_matrix": [[-2, 18, -148, 0]]}, "goal - current"),
     ({"difference_matrix": [[16, 18, -148, 0.1]]}, "load_to_body_weight_ratio: must be 0"),
     ({"difference_matrix": [[15, 18, -148, 0]]}, "goal - current"),
     ({"load_context": {"combat_load_kg": 20, "load_to_body_weight_ratio": 0.2667, "usage": "reference_only"}},

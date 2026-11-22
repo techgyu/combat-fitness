@@ -315,7 +315,7 @@ def check_evidence(rows: list[PlanRow], plan_input: PlanInput, catalog: Catalog)
     n_weeks = catalog.rules["plan_weeks"]["value"]
     by_week = _rows_by_week(rows)
     if cov["every_week_for_nonzero_delta"]:
-        for col in plan_input.nonzero_columns:
+        for col in plan_input.improvement_columns:
             for w in range(1, n_weeks + 1):
                 if not any(col in r.targets for r in by_week.get(w, [])):
                     out.append(Violation(check="evidence", week=w, field="targets", allowed=f"includes {col}",
@@ -335,7 +335,7 @@ def check_evidence(rows: list[PlanRow], plan_input: PlanInput, catalog: Catalog)
                              actual=la_weeks, reason="too few weeks with a load adaptation exercise (carry or stairs)"))
 
     rq = catalog.rules["run_quality"]
-    if rq["when_column_needs_improvement"] in plan_input.nonzero_columns:
+    if rq["when_column_needs_improvement"] in plan_input.improvement_columns:
         for w in range(rq["from_week"], n_weeks + 1):
             n = sum(1 for r in by_week.get(w, []) if r.exercise_id in rq["exercise_ids"])
             if n < rq["min_per_week"]:

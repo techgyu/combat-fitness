@@ -19,6 +19,33 @@ MAX_TOKENS = 64000
 ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
 
+class MissingAPIKey(ValueError):
+    pass
+
+
+def load_environment():
+    """Read simple KEY=value settings without logging secrets or overriding the shell."""
+    if ENV_FILE.exists():
+        for line in ENV_FILE.read_text(encoding="utf-8-sig").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key, value = key.strip(), value.strip()
+            if key not in {"ANTHROPIC_API_KEY", "MODULE2_MODEL", "MODULE2_EFFORT"}:
+                continue
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+                value = value[1:-1]
+            if value:
+                os.environ.setdefault(key, value)
+
+
+def api_key_configured():
+    load_environment()
+    key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    return bool(key and key not in {"sk-ant-...", "YOUR_API_KEY", "your_api_key_here"})
+
+
 @dataclass
 class LLMResult:
     plan: dict[str, Any] | None          # 파싱한 계획 JSON, 쓸 수 없으면 None
@@ -36,16 +63,17 @@ class ClaudePlanLLM:
     """Claude API client. Model/effort configurable via MODULE2_MODEL / MODULE2_EFFORT."""
 
     def __init__(self, model: str | None = None, effort: str | None = None, client: Any = None):
-        import anthropic
-        from dotenv import load_dotenv
-
-        # 실행 명령어에 넣은 환경변수가 .env보다 우선함 (override=False).
-        load_dotenv(ENV_FILE, override=False)
+        load_environment()
         self.model = model or os.environ.get("MODULE2_MODEL", DEFAULT_MODEL)
         self.effort = effort or os.environ.get("MODULE2_EFFORT", DEFAULT_EFFORT)
-        self.client = client or anthropic.Anthropic()
+        self.client = client
 
     def complete(self, system: str, messages: list[dict[str, Any]]) -> LLMResult:
+        if self.client is None:
+            if not api_key_configured():
+                raise MissingAPIKey("repository/.env의 ANTHROPIC_API_KEY를 설정한 뒤 다시 요청하세요.")
+            import anthropic
+            self.client = anthropic.Anthropic(timeout=180.0, max_retries=0)
         with self.client.messages.stream(
             model=self.model,
             max_tokens=MAX_TOKENS,
