@@ -1,0 +1,2 @@
+# Compatibility spelling; maintain dependency versions in requirements.txt.
+-r requirements.txt

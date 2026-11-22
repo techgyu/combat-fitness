@@ -2,6 +2,18 @@
 
 웹에서 합성 장병을 조회하거나 입력하고, 모듈 1이 연령별 1급 목표와 `Goal − Now`를 계산한다. 모듈 2는 현재 체력과 보병 소총수의 15kg 군장 훈련 준비를 고려해 Claude로 8주 보완 운동 계획을 생성·검증한다. 결과와 수정 이력은 웹에 표시하고 SQLite에 보관한다.
 
+## 구성
+
+| 구성 요소 | 위치 | 역할 / 기본 주소 |
+|---|---|---|
+| 웹 화면 | `frontend/` | 입력·조회·결과 표시. 모듈 1이 `http://127.0.0.1:8000`에서 제공 |
+| 모듈 1 | `backend/module1/` | 입력 검증, 목표·차이 계산, SQLite 저장, 모듈 2 호출 |
+| 모듈 2 | `backend/module2/` | Claude 계획 생성·규칙 검증·수정. `http://127.0.0.1:8001` |
+| 연동 문서 | `docs/` | API 명세, 요청 예시, 데이터 교환 규격 |
+| 자동 테스트 | `tests/`, `backend/module2/tests/` | 모듈별 검증 및 웹→모듈 1→모듈 2 통합 확인 |
+
+웹은 별도 Node.js 빌드나 npm 설치 없이 실행한다. 모듈 1의 기본 실행과 SQLite는 Python 표준 라이브러리를 사용한다.
+
 ## Windows에서 실행
 
 Python 3.11 이상을 사용한다. PowerShell에서 프로젝트 루트(`start_demo.ps1`이 있는 `repository` 또는 `combat-fitness` 폴더)로 이동한다.
@@ -12,6 +24,16 @@ Python 3.11 이상을 사용한다. PowerShell에서 프로젝트 루트(`start_
 
 # 로컬 설정 파일 편집
 notepad .env
+```
+
+`setup.ps1`은 루트 [requirements.txt](requirements.txt)에 고정된 패키지를 설치한다. 실행·FastAPI 대체 서버·자동 테스트에 필요한 패키지가 포함되어 있다. 호환용 [requirement.txt](requirement.txt)와 기존 `backend/module2/requirements.txt`도 같은 목록을 참조한다.
+
+설치를 직접 진행하려면 다음 명령을 사용한다. 이미 `.venv`가 있으면 첫 줄은 생략한다.
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+if (-not (Test-Path -LiteralPath .env)) { Copy-Item .env.example .env }
 ```
 
 [Claude Console](https://console.anthropic.com/settings/keys)에서 발급한 키를 `.env`에 입력한다. API 호출에는 해당 계정의 API 사용 요금·크레딧이 적용된다.
@@ -100,19 +122,50 @@ MODULE2_EFFORT=medium
 - 목표 기준: `backend/module1/config/target_criteria.json`
 - 운동·근거·계획 규칙 원본: `backend/module2/data/*.json`
 - 모듈 1의 `planning_resources.py`가 같은 원본을 기존 API 필드로 변환한다. `module1/config/exercise_catalog.json`, `planning_rules.json`은 문서용 생성 사본이다. 실행 시 원본을 읽으며 이 사본을 직접 수정하지 않는다.
-- 웹 → 모듈 1: `POST /api/v1/soldiers`, `POST /api/v1/soldiers/{soldier_id}/module2`
-- 모듈 1 → 모듈 2: `GET /health`, `POST /api/v1/plans`
-- 실제 응답은 접수 식별자와 `generation_status`, 전체 `result`를 포함한다. `accepted`는 통신 접수이며, 계획 검증 통과는 `result.status == "passed"`로 구분한다.
 - [연동 규격](docs/MODULE2_HANDOFF.md), [API 명세](docs/module2.openapi.json), [요청 예시](docs/module2_request.example.json)
+
+| 호출 대상 | 메서드 / 경로 | 기능 |
+|---|---|---|
+| 모듈 1 (`:8000`) | `GET /api/v1/soldiers` | 장병 목록·검색 |
+| 모듈 1 (`:8000`) | `POST /api/v1/soldiers` | 가상 장병 등록 |
+| 모듈 1 (`:8000`) | `GET /api/v1/soldiers/{soldier_id}` | 장병 정보·목표·차이 및 마지막 계획 조회 |
+| 모듈 1 (`:8000`) | `POST /api/v1/soldiers/{soldier_id}/module2` | 저장된 장병으로 계획 생성 요청. 본문은 `{}` |
+| 모듈 2 (`:8001`) | `GET /health` | 상태·계약 버전·API 키 설정 여부 확인 |
+| 모듈 2 (`:8001`) | `POST /api/v1/plans` | 모듈 1의 결과와 공유 자료를 받아 계획 생성·검증 |
+
+모듈 2는 접수 식별자와 `generation_status`, 전체 `result`를 반환한다. 웹 API는 이를 `module2_response`로 감싸서 반환하므로, 웹 응답의 계획은 `module2_response.result.plan`, 검증 상태는 `module2_response.result.status`에서 확인한다. 장병 재조회 시에는 `latest_plan.result`에 마지막 결과가 들어 있다. `accepted`는 요청 접수 상태이며 계획 통과를 의미하지 않는다. 계획 통과 여부는 `result.status == "passed"`로 판단한다.
 
 기본 실행은 Python 표준 HTTP 서버를 사용한다. FastAPI와 자동 문서가 필요한 경우 같은 서비스를 아래와 같이 실행한다.
 
 ```powershell
+# 터미널 1: 대체 모듈 2 서버
 .\.venv\Scripts\python.exe -m uvicorn module2.api:app --app-dir backend --host 127.0.0.1 --port 9000
+# 터미널 2: 웹·모듈 1을 위 서버에 연결
 .\start_demo.ps1 -Module2Url "http://127.0.0.1:9000"
 ```
 
-FastAPI의 `/plan`은 모듈 2 단독 실행을 위한 간소화 입력이며, 통합 시스템은 `/api/v1/plans`를 사용한다. 외부 생성 요청을 기다리는 모듈 1 제한시간은 기본 600초, Claude SDK의 대기 제한은 호출당 180초이며 SDK 재시도는 비활성화한다. 서버는 같은 PC에서 사용하는 개발용 루프백 서버다.
+FastAPI 자동 문서는 `http://127.0.0.1:9000/docs`에서 확인한다. `/plan`은 모듈 2 단독 실행을 위한 간소화 입력이며, 통합 시스템은 `/api/v1/plans`를 사용한다. 외부 생성 요청을 기다리는 모듈 1 제한시간은 기본 600초, Claude SDK의 대기 제한은 호출당 180초이며 SDK 재시도는 비활성화한다. 서버는 같은 PC에서 사용하는 개발용 루프백 서버다.
+
+## Linux / macOS에서 실행
+
+프로젝트 루트에서 가상환경을 만들고 `.env`에 키를 설정한다. 아래 두 서버는 각각 별도 터미널에서 실행한다.
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+# .env가 없는 경우에만 복사한 뒤 편집
+test -f .env || cp .env.example .env
+
+# 터미널 1: 모듈 2
+.venv/bin/python backend/module2/server.py --port 8001
+```
+
+```bash
+# 터미널 2: 웹·모듈 1
+.venv/bin/python backend/module1/server.py --port 8000 --module2-url http://127.0.0.1:8001
+```
+
+접속 주소는 `http://127.0.0.1:8000`이며 종료할 때 각 터미널에서 `Ctrl+C`를 누른다.
 
 ## 테스트와 배치
 
@@ -122,6 +175,12 @@ FastAPI의 `/plan`은 모듈 2 단독 실행을 위한 간소화 입력이며, �
 
 # 기존 합성 원본 검증 → 목표 → 차이 JSON 생성
 .\.venv\Scripts\python.exe backend/module1/run_module1.py
+```
+
+Linux / macOS에서는 위 명령의 Python 경로를 `.venv/bin/python`으로 바꾼다. 합성 데이터의 분포 그림을 만드는 `--generate --plots` 옵션을 사용할 때만 아래 추가 패키지를 설치한다. 웹 실행에는 필요 없다.
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r backend/module1/requirements-plots.txt
 ```
 
 통합 테스트는 임시 DB와 임시 포트를 사용하고 Claude 응답만 대체한다. 실제 API 인증·과금·모델 응답은 사용자 키를 설정한 후 별도 확인한다. 테스트 통과가 실제 훈련 효과를 의미하지 않는다.

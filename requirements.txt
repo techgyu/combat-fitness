@@ -1,0 +1,12 @@
+# Python 3.11+; versions verified in the project's development environment.
+# Runtime: Claude client and input/output models.
+anthropic==2.12.0
+pydantic==2.14.4
+
+# Optional FastAPI server and automated tests (included in the default setup).
+fastapi==0.165.0
+uvicorn==0.54.0
+httpx==0.28.1
+pytest==9.2.0
+
+# Optional synthetic-data plots: backend/module1/requirements-plots.txt
