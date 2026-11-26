@@ -4,7 +4,10 @@ import socket
 import urllib.error
 import urllib.parse
 import urllib.request
-from module1_core import CONTRACT_VERSION, DomainError, decode_json
+if __package__:
+    from .module1_core import CONTRACT_VERSION, DomainError, decode_json
+else:
+    from module1_core import CONTRACT_VERSION, DomainError, decode_json
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):

@@ -4,7 +4,10 @@ import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from module1_core import DomainError, validator
+if __package__:
+    from .module1_core import DomainError, validator
+else:
+    from module1_core import DomainError, validator
 
 
 class SoldierStore:

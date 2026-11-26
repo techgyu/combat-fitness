@@ -14,6 +14,31 @@
 
 웹은 별도 Node.js 빌드나 npm 설치 없이 실행한다. 모듈 1의 기본 실행과 SQLite는 Python 표준 라이브러리를 사용한다.
 
+## 설치 없이 다른 사람에게 전달하기 (Windows 64비트)
+
+배포용 ZIP `dist/CombatFitness-Windows-x64.zip`에는 Python과 실행 패키지가 포함된다. 받는 사람은 Python, Conda, pip를 설치하지 않아도 된다.
+
+1. ZIP 압축을 모두 푼다.
+2. `CombatFitness.exe`를 더블클릭한다. 두 모듈이 실행되고 웹 화면이 자동으로 열린다.
+3. 최초 한 번 실행 창에서 본인의 Claude API 키를 입력하고 **키 저장**을 누른다. 조회·입력·목표 계산은 키 없이도 가능하다.
+4. 사용 중에는 실행 창을 유지하고, 종료할 때 창의 **종료** 버튼을 누른다.
+
+EXE 옆의 `_internal` 폴더도 반드시 함께 전달한다. EXE 파일 하나만 전달하면 실행되지 않는다. 계획 생성에는 인터넷 연결과 사용 가능한 Claude API 키·크레딧이 필요하다. 프로그램 시작만으로 Claude를 호출하지 않는다.
+
+배포본에는 합성 장병 1,000명과 공통 기준 자료만 포함하며 개발자의 `.env`, 기존 SQLite DB, 로그·계획 이력은 포함하지 않는다. 사용자가 입력한 기록과 설정은 `%LOCALAPPDATA%\CombatFitness`에 저장한다. API 키는 Windows DPAPI로 암호화하여 현재 Windows 계정에 저장하므로 다른 PC에서는 다시 입력한다. 데이터 폴더의 `.env`로 `MODULE2_MODEL`, `MODULE2_EFFORT`를 지정할 수도 있다.
+
+기본 포트가 사용 중이면 빈 포트를 선택하여 실행 창에 실제 접속 주소를 표시한다. Windows 계정의 암호화 저장을 사용할 수 없으면 키를 파일에 저장하지 않고 이번 실행에서만 사용하며, 실행 창에 안내한다. 기존 `start_demo.ps1` 방식은 그대로 사용할 수 있다.
+
+개발자가 배포본을 다시 만드는 명령은 다음과 같다. Windows Python 3.11 이상을 사용한다. 빌드 도구는 개발 PC에만 설치한다.
+
+```powershell
+python -m venv build\packaging-env
+.\build\packaging-env\Scripts\python.exe -m pip install -r requirements-build.txt
+.\build\packaging-env\Scripts\python.exe tools\build_portable.py
+```
+
+빌드 스크립트는 EXE를 별도 프로세스에서 실행해 웹 파일·양쪽 API·합성 자료·등록·계산·DB 유지·암호화 키 저장을 확인한 후 ZIP을 생성한다. 이 검사는 외부 Claude API를 호출하지 않으며 실제 계획 생성은 사용자의 API 키로 별도 확인한다.
+
 ## Windows에서 실행
 
 Python 3.11 이상을 사용한다. PowerShell에서 프로젝트 루트(`start_demo.ps1`이 있는 `repository` 또는 `combat-fitness` 폴더)로 이동한다.

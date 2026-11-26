@@ -5,10 +5,16 @@ import re
 import uuid
 from pathlib import Path
 from urllib.parse import parse_qs, unquote
-from http_support import JsonHandler, serve
-from module1_core import ROOT, CONTRACT_VERSION, DomainError, Module1
-from module2_client import Module2Client
-from storage import SoldierStore
+if __package__:
+    from .http_support import JsonHandler, serve
+    from .module1_core import ROOT, CONTRACT_VERSION, DomainError, Module1
+    from .module2_client import Module2Client
+    from .storage import SoldierStore
+else:
+    from http_support import JsonHandler, serve
+    from module1_core import ROOT, CONTRACT_VERSION, DomainError, Module1
+    from module2_client import Module2Client
+    from storage import SoldierStore
 
 REPO = ROOT.parent.parent
 

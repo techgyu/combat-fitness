@@ -37,3 +37,7 @@ backend/module1/data/module2_input.json
 .DS_Store
 Thumbs.db
 *.tmp
+
+# Standalone Windows build outputs
+build/
+dist/

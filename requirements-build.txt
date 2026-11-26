@@ -1,0 +1,3 @@
+# Build machine only; recipients do not install Python or packages.
+-r requirements.txt
+pyinstaller==6.22.3

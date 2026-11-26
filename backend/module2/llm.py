@@ -71,7 +71,7 @@ class ClaudePlanLLM:
     def complete(self, system: str, messages: list[dict[str, Any]]) -> LLMResult:
         if self.client is None:
             if not api_key_configured():
-                raise MissingAPIKey("repository/.env의 ANTHROPIC_API_KEY를 설정한 뒤 다시 요청하세요.")
+                raise MissingAPIKey("Claude API 키를 설정한 뒤 다시 요청하세요.")
             import anthropic
             self.client = anthropic.Anthropic(timeout=180.0, max_retries=0)
         with self.client.messages.stream(

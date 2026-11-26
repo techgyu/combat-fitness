@@ -133,7 +133,7 @@ def test_key_error_reaches_web(tmp_path, monkeypatch):
         with Running(create_web(tmp_path / "web.sqlite3", seed, planner.base, port=0)) as web:
             code, body = http(web.base, "/api/v1/soldiers/22-00000001/module2", {})
             assert code == 502 and body["error"]["code"] == "module2_api_key_missing"
-            assert "ANTHROPIC_API_KEY" in body["error"]["message"]
+            assert "Claude API 키" in body["error"]["message"]
 
 
 def test_llm_request_and_response_without_paid_call():

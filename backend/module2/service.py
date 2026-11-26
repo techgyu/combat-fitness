@@ -30,7 +30,7 @@ class PlanService:
         return {"status": "ok", "service": "module2", "mode": "real",
                 "contract_version": CONTRACT_VERSION, "versions": self.catalog.versions,
                 "generation_ready": ready, "model": os.environ.get("MODULE2_MODEL", DEFAULT_MODEL),
-                "message": "계획 생성 준비 완료" if ready else "Claude API 키 설정이 필요합니다. repository/.env를 확인하세요."}
+                "message": "계획 생성 준비 완료" if ready else "Claude API 키 설정이 필요합니다."}
 
     def generate(self, raw, llm=None):
         # Reject invalid inputs before constructing an external API client.
@@ -52,7 +52,7 @@ class PlanService:
             except ImportError:
                 raise exc
             if isinstance(exc, anthropic.AuthenticationError):
-                raise ServiceError(502, "llm_auth_error", "Claude API 키가 유효하지 않습니다. .env를 확인하세요.") from None
+                raise ServiceError(502, "llm_auth_error", "Claude API 키가 유효하지 않습니다. 설정된 API 키를 확인하세요.") from None
             if isinstance(exc, anthropic.RateLimitError):
                 raise ServiceError(503, "llm_rate_limited", "Claude API 호출 한도에 도달했습니다. 잠시 후 다시 요청하세요.") from None
             if isinstance(exc, anthropic.APITimeoutError):
